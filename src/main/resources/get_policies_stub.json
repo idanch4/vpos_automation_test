@@ -1,0 +1,241 @@
+{
+  "ResponseHeader": {
+    "Succeeded": true,
+    "Errors": null,
+    "TraceId": "0HM3890JNSDBH:0000004B#NeCjkyzAwjbB98PIAAA"
+  },
+  "Terminals": [
+    {
+      "Id": 30752,
+      "Name": "03.11",
+      "ApiKey": "482d437f-06e8-46e9-bcaf-15d7b776ec4d",
+      "TerminalPolicies": {
+        "AllowedNumberOfInstallments": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "Currencies": [
+          {
+            "Symbol": "US$",
+            "Id": 1,
+            "Code": "USD",
+            "Description": "US Dollar"
+          },
+          {
+            "Symbol": "AU$",
+            "Id": 2,
+            "Code": "AUD",
+            "Description": "Australian Dollar"
+          },
+          {
+            "Symbol": "£",
+            "Id": 3,
+            "Code": "GBP",
+            "Description": "British Pound"
+          },
+          {
+            "Symbol": "€",
+            "Id": 4,
+            "Code": "EUR",
+            "Description": "Euro"
+          },
+          {
+            "Symbol": "C$",
+            "Id": 5,
+            "Code": "CAD",
+            "Description": "Canadian Dollar"
+          },
+          {
+            "Symbol": "CHF",
+            "Id": 6,
+            "Code": "CHF",
+            "Description": "Swiss franc"
+          },
+          {
+            "Symbol": "₽",
+            "Id": 7,
+            "Code": "RUB",
+            "Description": "Russian Ruble"
+          },
+          {
+            "Symbol": "zł",
+            "Id": 8,
+            "Code": "PLN",
+            "Description": "Polish Zloty"
+          },
+          {
+            "Symbol": "NZ$",
+            "Id": 9,
+            "Code": "NZD",
+            "Description": "New Zealand Dollar"
+          },
+          {
+            "Symbol": "¥",
+            "Id": 10,
+            "Code": "JPY",
+            "Description": "Yen"
+          },
+          {
+            "Symbol": "Ft",
+            "Id": 11,
+            "Code": "HUF",
+            "Description": "Forint"
+          },
+          {
+            "Symbol": "kr",
+            "Id": 12,
+            "Code": "DKK",
+            "Description": "Danish Krone"
+          },
+          {
+            "Symbol": "kr",
+            "Id": 13,
+            "Code": "NOK",
+            "Description": "Norwegian Krone"
+          },
+          {
+            "Symbol": "kr",
+            "Id": 14,
+            "Code": "SEK",
+            "Description": "Swedish Krona"
+          },
+          {
+            "Symbol": "R$",
+            "Id": 15,
+            "Code": "BRL",
+            "Description": "Brazil Real"
+          },
+          {
+            "Symbol": "د.إ",
+            "Id": 16,
+            "Code": "AED",
+            "Description": "Emirati Dirham"
+          },
+          {
+            "Symbol": "₪",
+            "Id": 17,
+            "Code": "ILS",
+            "Description": "Israel New Shekel"
+          },
+          {
+            "Symbol": "Kč",
+            "Id": 18,
+            "Code": "CZK",
+            "Description": "Czech koruna"
+          },
+          {
+            "Symbol": "lei",
+            "Id": 19,
+            "Code": "RON",
+            "Description": "Romanian leu"
+          },
+          {
+            "Symbol": "Лв.",
+            "Id": 20,
+            "Code": "BGN",
+            "Description": "Bulgarian lev"
+          },
+          {
+            "Symbol": "﷼",
+            "Id": 21,
+            "Code": "QAR",
+            "Description": "Qatari Rial"
+          },
+          {
+            "Symbol": "﷼",
+            "Id": 22,
+            "Code": "SAR",
+            "Description": "Saudi Riyal"
+          },
+          {
+            "Symbol": "₩",
+            "Id": 23,
+            "Code": "KRW",
+            "Description": "South Korean Won"
+          },
+          {
+            "Symbol": "¥",
+            "Id": 24,
+            "Code": "CNY",
+            "Description": "Chinese Yuan Renminbi"
+          },
+          {
+            "Symbol": "HK$",
+            "Id": 25,
+            "Code": "HKD",
+            "Description": "Hong Kong Dollar"
+          },
+          {
+            "Symbol": "S$",
+            "Id": 26,
+            "Code": "SGD",
+            "Description": "Singapore Dollar"
+          },
+          {
+            "Symbol": "₺",
+            "Id": 27,
+            "Code": "TRY",
+            "Description": "Turkish Lira"
+          },
+          {
+            "Symbol": "RD$",
+            "Id": 28,
+            "Code": "DOP",
+            "Description": "Dominican Peso"
+          },
+          {
+            "Symbol": "NT$",
+            "Id": 29,
+            "Code": "TWD",
+            "Description": "New Taiwan Dollar"
+          },
+          {
+            "Symbol": "R",
+            "Id": 30,
+            "Code": "ZAR",
+            "Description": "South African Rand"
+          },
+          {
+            "Symbol": "$",
+            "Id": 31,
+            "Code": "MXN",
+            "Description": "Mexican Peso"
+          },
+          {
+            "Symbol": "RM",
+            "Id": 32,
+            "Code": "MYR",
+            "Description": "Malaysian Ringgit"
+          },
+          {
+            "Symbol": "Rp",
+            "Id": 33,
+            "Code": "IDR",
+            "Description": "Indonesian Rupiah"
+          }
+        ],
+        "MinAmount": 1.00,
+        "MaxAmount": 20000.00,
+        "TryFundPlanByDefault": true,
+        "HasAvailableCredit": true,
+        "DefaultPlanStrategy": "SecuredPlan"
+      },
+      "LogoURL": "https://splitit-logos-qa-new.s3.amazonaws.com/logo-30606-2020-6-23-8-9-18.jpeg",
+      "DefaultCulture": {
+        "ParentName": "English",
+        "CultureName": "en-US",
+        "DisplayName": "English (United States)",
+        "IsoCountryName": "USA",
+        "IsoLanguageName": "eng",
+        "LCID": 1033
+      },
+      "Parameters": {}
+    }
+  ]
+}
