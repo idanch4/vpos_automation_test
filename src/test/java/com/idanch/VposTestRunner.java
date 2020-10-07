@@ -21,16 +21,19 @@ public class VposTestRunner {
         int numOfTests = 20;
         logger.info("Starting test -" + numOfTests + " times");
 
-        for (int i = 1; i <= numOfTests; i++) {
+        for (int i = 0; i < numOfTests; i++) {
             try {
-                executeTest(rnd.nextInt(1001), "test.test" + i + "@gmail.com");
+                Thread.sleep(500); // to avoid spamming the server
+                 executeTest(String.valueOf(rnd.nextInt(951) + 50), // 50-1000 value
+                        "test.test" + i + "@gmail.com");
             }catch(Exception e) {
+                logger.error(e.getMessage());
                 throw new AssertionError(e);
             }
         }
     }
 
-    public static void executeTest(double amountVal, String email) throws IOException, InterruptedException, URISyntaxException {
+    public static void executeTest(String amountVal, String email) throws IOException, InterruptedException, URISyntaxException {
         VposPaymentPlanTest test = new VposPaymentPlanTest();
 
         // login (get session id)
@@ -78,7 +81,7 @@ public class VposTestRunner {
             content.append(line);
         }
         PlanApprovalEvidence planApprovalEvidence = new PlanApprovalEvidence(content.toString());
-        test.createPlanTest(requestHeader, installmentPlanNumber, planApprovalEvidence);
-        logger.info("Initiate request #5 succeeded");
+        test.createPlanTest(requestHeader, installmentPlanNumber, cardDetails, planApprovalEvidence);
+        logger.info("Create request succeeded");
     }
 }

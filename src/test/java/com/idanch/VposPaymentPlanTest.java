@@ -14,6 +14,9 @@ import java.net.http.HttpResponse;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /**
  * A class that groups all of the tests for the vpos payment api
  *
@@ -40,17 +43,18 @@ public class VposPaymentPlanTest {
         String json = mapper.writeValueAsString(credentials);
 
         HttpResponse<String> resp = client.httpPostRequest(LOGIN_ENPOINT, json);
-        assert resp.statusCode() == 200;
+        assertEquals(200, resp.statusCode());
 
         LoginResponse loginResponse = mapper.readValue(resp.body(), LoginResponse.class);
 
         logger.info("Succeeded: " + loginResponse.isSucceeded());
         logger.info("Session Id: " + loginResponse.getSessionId());
 
-        assert loginResponse.isSucceeded();
+        assertTrue(loginResponse.isSucceeded());
 
         return loginResponse.getSessionId();
     }
+
 
     public String getApiKeyTest(RequestHeader requestHeader) throws IOException, InterruptedException {
 
@@ -60,14 +64,15 @@ public class VposPaymentPlanTest {
         String json = mapper.writeValueAsString(reqBody);
 
         HttpResponse<String> resp = client.httpPostRequest(GET_POLICIES_ENDPOINT, json);
-        assert resp.statusCode() == 200;
+        assertEquals(200, resp.statusCode());
 
         ApiKeyResponse apiKeyResponse = mapper.readValue(resp.body(), ApiKeyResponse.class);
-        assert apiKeyResponse.isSucceeded();
+        assertTrue(apiKeyResponse.isSucceeded());
 
         return apiKeyResponse.getApiKey();
 
     }
+
 
     public String initiatePlan1Test(RequestHeader requestHeader, PlanData planData) throws IOException, InterruptedException {
         logger.info("amount: " + planData.getAmount().getValue());
@@ -78,13 +83,14 @@ public class VposPaymentPlanTest {
 
         String jsonBodyStr = mapper.writeValueAsString(jsonBody);
         HttpResponse<String> resp = client.httpPostRequest(INITIATE_INSTALLMENT_PLAN_ENDPOINT, jsonBodyStr);
-        assert resp.statusCode() == 200;
+        assertEquals(200, resp.statusCode());
 
         JsonNode root = mapper.readTree(resp.body());
-        assert root.findValue("Succeeded").asBoolean();
+        assertTrue(root.findValue("Succeeded").asBoolean());
 
         return root.findValue("InstallmentPlanNumber").asText();
     }
+
 
     public void initiatePlan2Test(RequestHeader requestHeader, String installmentPlanNumber,
                                   BillingAddress billingAddress) throws IOException, InterruptedException {
@@ -92,15 +98,16 @@ public class VposPaymentPlanTest {
         Map<String, Object> jsonBody = new LinkedHashMap<>();
         jsonBody.put("RequestHeader", requestHeader);
         jsonBody.put("InstallmentPlanNumber", installmentPlanNumber);
-        jsonBody.put("PlanData", billingAddress);
+        jsonBody.put("BillingAddress", billingAddress);
 
         String jsonBodyStr = mapper.writeValueAsString(jsonBody);
         HttpResponse<String> resp = client.httpPostRequest(INITIATE_INSTALLMENT_PLAN_ENDPOINT, jsonBodyStr);
-        assert resp.statusCode() == 200;
+        assertEquals(200, resp.statusCode());
 
         JsonNode root = mapper.readTree(resp.body());
-        assert root.findValue("Succeeded").asBoolean();
+        assertTrue(root.findValue("Succeeded").asBoolean());
     }
+
 
     public void initiatePlan3Test(RequestHeader requestHeader, String installmentPlanNumber,
                                   ConsumerData consumerData) throws IOException, InterruptedException {
@@ -113,11 +120,12 @@ public class VposPaymentPlanTest {
 
         String jsonBodyStr = mapper.writeValueAsString(jsonBody);
         HttpResponse<String> resp = client.httpPostRequest(INITIATE_INSTALLMENT_PLAN_ENDPOINT, jsonBodyStr);
-        assert resp.statusCode() == 200;
+        assertEquals(200, resp.statusCode());
 
         JsonNode root = mapper.readTree(resp.body());
-        assert root.findValue("Succeeded").asBoolean();
+        assertTrue(root.findValue("Succeeded").asBoolean());
     }
+
 
     public void initiatePlan4Test(RequestHeader requestHeader, String installmentPlanNumber,
                                   CreditCardDetails cardDetails, Installments installments) throws IOException, InterruptedException {
@@ -125,30 +133,33 @@ public class VposPaymentPlanTest {
 
         jsonBody.put("RequestHeader", requestHeader);
         jsonBody.put("InstallmentPlanNumber", installmentPlanNumber);
-        jsonBody.put("CreditCardDetails", cardDetails);
         jsonBody.put("PlanData", installments);
+        jsonBody.put("CreditCardDetails", cardDetails);
 
         String jsonBodyStr = mapper.writeValueAsString(jsonBody);
         HttpResponse<String> resp = client.httpPostRequest(INITIATE_INSTALLMENT_PLAN_ENDPOINT, jsonBodyStr);
-        assert resp.statusCode() == 200;
+        assertEquals(200, resp.statusCode());
 
         JsonNode root = mapper.readTree(resp.body());
-        assert root.findValue("Succeeded").asBoolean();
+        assertTrue(root.findValue("Succeeded").asBoolean());
     }
 
+
     public void createPlanTest(RequestHeader requestHeader, String installmentPlanNumber,
-                               PlanApprovalEvidence planApprovalEvidence) throws IOException, InterruptedException {
+                               CreditCardDetails cardDetails, PlanApprovalEvidence planApprovalEvidence)
+            throws IOException, InterruptedException {
         Map<String, Object> jsonBody = new LinkedHashMap<>();
 
         jsonBody.put("RequestHeader", requestHeader);
         jsonBody.put("InstallmentPlanNumber", installmentPlanNumber);
+        jsonBody.put("CreditCardDetails", cardDetails);
         jsonBody.put("PlanApprovalEvidence", planApprovalEvidence);
 
         String jsonBodyStr = mapper.writeValueAsString(jsonBody);
         HttpResponse<String> resp = client.httpPostRequest(CREATE_INSTALLMENT_PLAN_ENDPOINT, jsonBodyStr);
-        assert resp.statusCode() == 200;
+        assertEquals(200, resp.statusCode());
 
         JsonNode root = mapper.readTree(resp.body());
-        assert root.findValue("Succeeded").asBoolean();
+        assertTrue(root.findValue("Succeeded").asBoolean());
     }
 }

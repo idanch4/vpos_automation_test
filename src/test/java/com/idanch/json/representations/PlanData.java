@@ -30,16 +30,16 @@ public final class PlanData {
 
     public static final class Amount {
         @JsonProperty("Value")
-        private double value;
+        private String value;
         @JsonProperty("CurrencyCode")
         private String currencyCode;
 
-        public Amount(double value, String currencyCode) {
+        public Amount(String value, String currencyCode) {
             this.value = value;
             this.currencyCode = currencyCode;
         }
 
-        public double getValue() {
+        public String getValue() {
             return value;
         }
         public String getCurrencyCode() {
