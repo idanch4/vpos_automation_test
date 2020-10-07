@@ -9,6 +9,10 @@ import com.idanch.json.LoginResponse;
 
 import java.io.IOException;
 
+/**
+ * A class tha retrieves relevant data from the server response json.
+ */
+
 public class LoginResponseDeserializer extends JsonDeserializer<LoginResponse> {
     @Override
     public LoginResponse deserialize(

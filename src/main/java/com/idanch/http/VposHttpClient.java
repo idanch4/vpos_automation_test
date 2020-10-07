@@ -6,6 +6,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+/**
+ * Http client wrapper with presets for easy requests to the vpos api in JSON format
+ */
+
 public final class VposHttpClient {
 
     private final HttpClient client;

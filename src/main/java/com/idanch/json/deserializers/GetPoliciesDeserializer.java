@@ -9,6 +9,10 @@ import com.idanch.json.ApiKeyResponse;
 
 import java.io.IOException;
 
+/**
+ * Retrieves relevant data from the server response json.
+ */
+
 public class GetPoliciesDeserializer extends JsonDeserializer<ApiKeyResponse> {
 
     @Override

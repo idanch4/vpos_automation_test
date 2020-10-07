@@ -12,6 +12,11 @@ import java.net.http.HttpResponse;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * A class that groups all of the tests for the vpos payment api
+ *
+ */
+
 public class VposPaymentPlanTest {
     private static final String LOGIN_ENPOINT = "/login";
     private static final String GET_POLICIES_ENDPOINT = "/Terminal/GetPolicies";
@@ -26,7 +31,7 @@ public class VposPaymentPlanTest {
         mapper = new ObjectMapper();
     }
 
-    public String getSessionId(LoginCredentials credentials) throws IOException, InterruptedException {
+    public String getSessionIdTest(LoginCredentials credentials) throws IOException, InterruptedException {
         String json = mapper.writeValueAsString(credentials);
 
         HttpResponse<String> resp = client.httpPostRequest(LOGIN_ENPOINT, json);
@@ -42,7 +47,7 @@ public class VposPaymentPlanTest {
         return loginResponse.getSessionId();
     }
 
-    public String getApiKey(RequestHeader requestHeader) throws IOException, InterruptedException {
+    public String getApiKeyTest(RequestHeader requestHeader) throws IOException, InterruptedException {
         Map<String,Object> reqBody = new LinkedHashMap<>();
         reqBody.put("RequestHeader", requestHeader);
 
@@ -58,7 +63,7 @@ public class VposPaymentPlanTest {
 
     }
 
-    public String initiatePlan1(RequestHeader requestHeader, PlanData planData) throws IOException, InterruptedException {
+    public String initiatePlan1Test(RequestHeader requestHeader, PlanData planData) throws IOException, InterruptedException {
         System.out.println("amount: " + planData.getAmount().getValue());
 
         Map<String, Object> jsonBody = new LinkedHashMap<>();
@@ -76,8 +81,8 @@ public class VposPaymentPlanTest {
         return root.findValue("InstallmentPlanNumber").asText();
     }
 
-    public void initiatePlan2(RequestHeader requestHeader, String installmentPlanNumber,
-                              BillingAddress billingAddress) throws IOException, InterruptedException {
+    public void initiatePlan2Test(RequestHeader requestHeader, String installmentPlanNumber,
+                                  BillingAddress billingAddress) throws IOException, InterruptedException {
         Map<String, Object> jsonBody = new LinkedHashMap<>();
 
         jsonBody.put("RequestHeader", requestHeader);
@@ -92,8 +97,8 @@ public class VposPaymentPlanTest {
         assert root.findValue("Succeeded").asBoolean();
     }
 
-    public void initiatePlan3(RequestHeader requestHeader, String installmentPlanNumber,
-                              ConsumerData consumerData) throws IOException, InterruptedException {
+    public void initiatePlan3Test(RequestHeader requestHeader, String installmentPlanNumber,
+                                  ConsumerData consumerData) throws IOException, InterruptedException {
         System.out.println("email: " + consumerData.getEmail());
         Map<String, Object> jsonBody = new LinkedHashMap<>();
 
@@ -109,8 +114,8 @@ public class VposPaymentPlanTest {
         assert root.findValue("Succeeded").asBoolean();
     }
 
-    public void initiatePlan4(RequestHeader requestHeader, String installmentPlanNumber,
-                              CreditCardDetails cardDetails, Installments installments) throws IOException, InterruptedException {
+    public void initiatePlan4Test(RequestHeader requestHeader, String installmentPlanNumber,
+                                  CreditCardDetails cardDetails, Installments installments) throws IOException, InterruptedException {
         Map<String, Object> jsonBody = new LinkedHashMap<>();
 
         jsonBody.put("RequestHeader", requestHeader);
@@ -126,8 +131,8 @@ public class VposPaymentPlanTest {
         assert root.findValue("Succeeded").asBoolean();
     }
 
-    public void createPlan(RequestHeader requestHeader, String installmentPlanNumber,
-                           PlanApprovalEvidence planApprovalEvidence) throws IOException, InterruptedException {
+    public void createPlanTest(RequestHeader requestHeader, String installmentPlanNumber,
+                               PlanApprovalEvidence planApprovalEvidence) throws IOException, InterruptedException {
         Map<String, Object> jsonBody = new LinkedHashMap<>();
 
         jsonBody.put("RequestHeader", requestHeader);

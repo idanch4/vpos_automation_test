@@ -28,38 +28,38 @@ public class VposTestRunner {
 
         // login (get session id)
         LoginCredentials credentials = new LoginCredentials("test_vpos", "Test123!");
-        String sessionId = test.getSessionId(credentials);
+        String sessionId = test.getSessionIdTest(credentials);
         System.out.println("Login request succeeded, sessionId: " + sessionId);
 
         // get api key
         RequestHeader.TouchPoint touchPoint = new RequestHeader.TouchPoint("VposCheckOut", "2.0");
         RequestHeader requestHeader = new RequestHeader("0", "en-US", touchPoint, sessionId);
-        String apiKey = test.getApiKey(requestHeader);
+        String apiKey = test.getApiKeyTest(requestHeader);
         requestHeader.setApiKey(apiKey);
         System.out.println("Api Key request succeeded, apiKey: " + apiKey);
 
         // initiate plan 1
         PlanData.Amount amount = new PlanData.Amount(amountVal, "GBP");
         PlanData planData = new PlanData(amount, "idan", "InStore");
-        String installmentPlanNumber = test.initiatePlan1(requestHeader, planData);
+        String installmentPlanNumber = test.initiatePlan1Test(requestHeader, planData);
         System.out.println("Initiate request #1 succeeded");
 
         // initiate plan 2
         BillingAddress billingAddress = new BillingAddress("test", "", "testcity",
                 "", "ISRAEL", "123456");
-        test.initiatePlan2(requestHeader,installmentPlanNumber, billingAddress);
+        test.initiatePlan2Test(requestHeader,installmentPlanNumber, billingAddress);
         System.out.println("Initiate request #2 succeeded");
 
         // initiate plan 3
         ConsumerData consumerData = new ConsumerData("test", "en-US", email);
-        test.initiatePlan3(requestHeader, installmentPlanNumber, consumerData);
+        test.initiatePlan3Test(requestHeader, installmentPlanNumber, consumerData);
         System.out.println("Initiate request #3 succeeded");
 
         // initiate plan 4
         CreditCardDetails cardDetails = new CreditCardDetails("123", "test",
                 "4111111111111111", "25", "05");
         Installments installments = new Installments(6, null);
-        test.initiatePlan4(requestHeader, installmentPlanNumber, cardDetails, installments);
+        test.initiatePlan4Test(requestHeader, installmentPlanNumber, cardDetails, installments);
         System.out.println("Initiate request #4 succeeded");
 
         // create plan
@@ -71,7 +71,7 @@ public class VposTestRunner {
             content.append(line);
         }
         PlanApprovalEvidence planApprovalEvidence = new PlanApprovalEvidence(content.toString());
-        test.createPlan(requestHeader, installmentPlanNumber, planApprovalEvidence);
+        test.createPlanTest(requestHeader, installmentPlanNumber, planApprovalEvidence);
         System.out.println("Initiate request #5 succeeded");
     }
 }
