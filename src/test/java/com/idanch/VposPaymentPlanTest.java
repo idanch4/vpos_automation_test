@@ -6,6 +6,8 @@ import com.idanch.http.VposHttpClient;
 import com.idanch.json.ApiKeyResponse;
 import com.idanch.json.LoginResponse;
 import com.idanch.json.representations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
@@ -23,6 +25,8 @@ public class VposPaymentPlanTest {
     private static final String INITIATE_INSTALLMENT_PLAN_ENDPOINT = "/InstallmentPlan/initiate";
     private static final String CREATE_INSTALLMENT_PLAN_ENDPOINT = "/InstallmentPlan/Create";
 
+    private static final Logger logger = LoggerFactory.getLogger(VposPaymentPlanTest.class);
+
     private final VposHttpClient client;
     private final ObjectMapper mapper;
 
@@ -32,6 +36,7 @@ public class VposPaymentPlanTest {
     }
 
     public String getSessionIdTest(LoginCredentials credentials) throws IOException, InterruptedException {
+
         String json = mapper.writeValueAsString(credentials);
 
         HttpResponse<String> resp = client.httpPostRequest(LOGIN_ENPOINT, json);
@@ -39,8 +44,8 @@ public class VposPaymentPlanTest {
 
         LoginResponse loginResponse = mapper.readValue(resp.body(), LoginResponse.class);
 
-        System.out.println("Succeeded: " + loginResponse.isSucceeded());
-        System.out.println("Session Id: " + loginResponse.getSessionId());
+        logger.info("Succeeded: " + loginResponse.isSucceeded());
+        logger.info("Session Id: " + loginResponse.getSessionId());
 
         assert loginResponse.isSucceeded();
 
@@ -48,6 +53,7 @@ public class VposPaymentPlanTest {
     }
 
     public String getApiKeyTest(RequestHeader requestHeader) throws IOException, InterruptedException {
+
         Map<String,Object> reqBody = new LinkedHashMap<>();
         reqBody.put("RequestHeader", requestHeader);
 
@@ -64,10 +70,9 @@ public class VposPaymentPlanTest {
     }
 
     public String initiatePlan1Test(RequestHeader requestHeader, PlanData planData) throws IOException, InterruptedException {
-        System.out.println("amount: " + planData.getAmount().getValue());
+        logger.info("amount: " + planData.getAmount().getValue());
 
         Map<String, Object> jsonBody = new LinkedHashMap<>();
-
         jsonBody.put("RequestHeader", requestHeader);
         jsonBody.put("PlanData", planData);
 
@@ -83,8 +88,8 @@ public class VposPaymentPlanTest {
 
     public void initiatePlan2Test(RequestHeader requestHeader, String installmentPlanNumber,
                                   BillingAddress billingAddress) throws IOException, InterruptedException {
-        Map<String, Object> jsonBody = new LinkedHashMap<>();
 
+        Map<String, Object> jsonBody = new LinkedHashMap<>();
         jsonBody.put("RequestHeader", requestHeader);
         jsonBody.put("InstallmentPlanNumber", installmentPlanNumber);
         jsonBody.put("PlanData", billingAddress);
@@ -99,9 +104,9 @@ public class VposPaymentPlanTest {
 
     public void initiatePlan3Test(RequestHeader requestHeader, String installmentPlanNumber,
                                   ConsumerData consumerData) throws IOException, InterruptedException {
-        System.out.println("email: " + consumerData.getEmail());
-        Map<String, Object> jsonBody = new LinkedHashMap<>();
+        logger.info("email: " + consumerData.getEmail());
 
+        Map<String, Object> jsonBody = new LinkedHashMap<>();
         jsonBody.put("RequestHeader", requestHeader);
         jsonBody.put("InstallmentPlanNumber", installmentPlanNumber);
         jsonBody.put("ConsumerData", consumerData);
