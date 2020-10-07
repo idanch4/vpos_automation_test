@@ -1,4 +1,4 @@
-package com.idanch.json.serializers.representations;
+package com.idanch.json.representations;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -30,16 +30,16 @@ public final class PlanData {
 
     public static final class Amount {
         @JsonProperty("Value")
-        private long value;
+        private double value;
         @JsonProperty("CurrencyCode")
         private String currencyCode;
 
-        public Amount(long value, String currencyCode) {
+        public Amount(double value, String currencyCode) {
             this.value = value;
             this.currencyCode = currencyCode;
         }
 
-        public long getValue() {
+        public double getValue() {
             return value;
         }
         public String getCurrencyCode() {

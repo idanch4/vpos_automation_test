@@ -1,4 +1,4 @@
-package com.idanch.json.serializers.representations;
+package com.idanch.json.representations;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

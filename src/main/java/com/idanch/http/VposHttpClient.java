@@ -20,18 +20,12 @@ public final class VposHttpClient {
     private static final String BASE_URI = PROTOCOL + HOST_NAME + API_PATH;
     private static final String JSON_FORMAT_PARAM = "format=json";
 
-    public String httpPostRequest(String endpoint, String json) throws IOException, InterruptedException {
+    public HttpResponse<String> httpPostRequest(String endpoint, String json) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest
                 .newBuilder(URI.create(BASE_URI + endpoint + "?" + JSON_FORMAT_PARAM))
                 .setHeader("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .build();
-        HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        assert resp.statusCode() == 200;
-
-
-
-        return resp.body();
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 }
