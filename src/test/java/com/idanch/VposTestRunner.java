@@ -10,30 +10,21 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Random;
+
+/**
+ * A class that executes tests with different data
+ */
 
 public class VposTestRunner {
     private static final Logger logger = LoggerFactory.getLogger(VposTestRunner.class);
 
-    public static void main(String[] args) {
-        Random rnd = new Random();
+    private String amountVal = "100";
+    private String email = "test@gmail.com";
+    private String cardNumber = "4111111111111111";
+    private String cardExpYear = "22";
+    private String cardExpMonth = "02";
 
-        int numOfTests = 20;
-        logger.info("Starting test -" + numOfTests + " times");
-
-        for (int i = 0; i < numOfTests; i++) {
-            try {
-                Thread.sleep(500); // to avoid spamming the server
-                 executeTest(String.valueOf(rnd.nextInt(951) + 50), // 50-1000 value
-                        "test.test" + i + "@gmail.com");
-            }catch(Exception e) {
-                logger.error(e.getMessage());
-                throw new AssertionError(e);
-            }
-        }
-    }
-
-    public static void executeTest(String amountVal, String email) throws IOException, InterruptedException, URISyntaxException {
+    public void executeTest1() throws IOException, InterruptedException, URISyntaxException {
         VposPaymentPlanTest test = new VposPaymentPlanTest();
 
         // login (get session id)
@@ -67,7 +58,7 @@ public class VposTestRunner {
 
         // initiate plan 4
         CreditCardDetails cardDetails = new CreditCardDetails("123", "test",
-                "4111111111111111", "25", "05");
+                cardNumber, cardExpYear, cardExpMonth);
         Installments installments = new Installments(6, null);
         test.initiatePlan4Test(requestHeader, installmentPlanNumber, cardDetails, installments);
         logger.info("Initiate request #4 succeeded");
@@ -83,5 +74,45 @@ public class VposTestRunner {
         PlanApprovalEvidence planApprovalEvidence = new PlanApprovalEvidence(content.toString());
         test.createPlanTest(requestHeader, installmentPlanNumber, cardDetails, planApprovalEvidence);
         logger.info("Create request succeeded");
+    }
+
+    public String getAmountVal() {
+        return amountVal;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public String getCardExpYear() {
+        return cardExpYear;
+    }
+
+    public String getCardExpMonth() {
+        return cardExpMonth;
+    }
+
+    public void setAmountVal(String amountVal) {
+        this.amountVal = amountVal;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public void setCardExpYear(String cardExpYear) {
+        this.cardExpYear = cardExpYear;
+    }
+
+    public void setCardExpMonth(String cardExpMonth) {
+        this.cardExpMonth = cardExpMonth;
     }
 }

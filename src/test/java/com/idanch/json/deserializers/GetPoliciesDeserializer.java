@@ -20,9 +20,10 @@ public class GetPoliciesDeserializer extends JsonDeserializer<ApiKeyResponse> {
         ObjectCodec codec = parser.getCodec();
         JsonNode node = codec.readTree(parser);
 
-        boolean succeeded = node.findValue("Succeeded").asBoolean(); // Succeeded field
         String apiKey = node.findValue("ApiKey").asText(); // ApiKey field
+        JsonNode responseHeader = node.findValue("ResponseHeader"); // for errors
+        boolean succeeded = responseHeader.findValue("Succeeded").asBoolean(); // Succeeded field
 
-        return new ApiKeyResponse(succeeded, apiKey);
+        return new ApiKeyResponse(succeeded, apiKey, responseHeader.toPrettyString());
     }
 }

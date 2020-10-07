@@ -23,9 +23,10 @@ public class LoginResponseDeserializer extends JsonDeserializer<LoginResponse> {
         ObjectCodec codec = jsonParser.getCodec();
         JsonNode node = codec.readTree(jsonParser);
 
-        boolean succeeded = node.findValue("Succeeded").asBoolean(); // Succeeded field
         String sessionId = node.findValue("SessionId").asText(); // SessionId field
+        JsonNode responseHeader = node.findValue("ResponseHeader"); // for errors
+        boolean succeeded = responseHeader.findValue("Succeeded").asBoolean(); // Succeeded field
 
-        return new LoginResponse(succeeded, sessionId);
+        return new LoginResponse(succeeded, sessionId, responseHeader.toPrettyString());
     }
 }

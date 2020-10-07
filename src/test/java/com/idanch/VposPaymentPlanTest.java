@@ -46,11 +46,7 @@ public class VposPaymentPlanTest {
         assertEquals(200, resp.statusCode());
 
         LoginResponse loginResponse = mapper.readValue(resp.body(), LoginResponse.class);
-
-        logger.info("Succeeded: " + loginResponse.isSucceeded());
-        logger.info("Session Id: " + loginResponse.getSessionId());
-
-        assertTrue(loginResponse.isSucceeded());
+        assertTrue(loginResponse.isSucceeded(), loginResponse.getResponseHeaderStr());
 
         return loginResponse.getSessionId();
     }
@@ -67,7 +63,7 @@ public class VposPaymentPlanTest {
         assertEquals(200, resp.statusCode());
 
         ApiKeyResponse apiKeyResponse = mapper.readValue(resp.body(), ApiKeyResponse.class);
-        assertTrue(apiKeyResponse.isSucceeded());
+        assertTrue(apiKeyResponse.isSucceeded(), apiKeyResponse.getResponseHeaderStr());
 
         return apiKeyResponse.getApiKey();
 
@@ -86,7 +82,7 @@ public class VposPaymentPlanTest {
         assertEquals(200, resp.statusCode());
 
         JsonNode root = mapper.readTree(resp.body());
-        assertTrue(root.findValue("Succeeded").asBoolean());
+        assertSucceeded(root);
 
         return root.findValue("InstallmentPlanNumber").asText();
     }
@@ -105,7 +101,7 @@ public class VposPaymentPlanTest {
         assertEquals(200, resp.statusCode());
 
         JsonNode root = mapper.readTree(resp.body());
-        assertTrue(root.findValue("Succeeded").asBoolean());
+        assertSucceeded(root);
     }
 
 
@@ -123,7 +119,7 @@ public class VposPaymentPlanTest {
         assertEquals(200, resp.statusCode());
 
         JsonNode root = mapper.readTree(resp.body());
-        assertTrue(root.findValue("Succeeded").asBoolean());
+        assertSucceeded(root);
     }
 
 
@@ -141,7 +137,7 @@ public class VposPaymentPlanTest {
         assertEquals(200, resp.statusCode());
 
         JsonNode root = mapper.readTree(resp.body());
-        assertTrue(root.findValue("Succeeded").asBoolean());
+        assertSucceeded(root);
     }
 
 
@@ -160,6 +156,12 @@ public class VposPaymentPlanTest {
         assertEquals(200, resp.statusCode());
 
         JsonNode root = mapper.readTree(resp.body());
-        assertTrue(root.findValue("Succeeded").asBoolean());
+        assertSucceeded(root);
+    }
+
+    private void assertSucceeded(JsonNode root) {
+        JsonNode responseHeader = root.findValue("ResponseHeader");
+        assertTrue(responseHeader.findValue("Succeeded").asBoolean(),
+                responseHeader.toPrettyString());
     }
 }

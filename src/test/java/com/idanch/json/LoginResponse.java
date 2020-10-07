@@ -11,10 +11,12 @@ import com.idanch.json.deserializers.LoginResponseDeserializer;
 public final class LoginResponse {
     private final String sessionId;
     private final boolean succeeded;
+    private final String responseHeaderStr;
 
-    public LoginResponse(boolean succeeded, String sessionId) {
+    public LoginResponse(boolean succeeded, String sessionId, String responseHeaderStr) {
         this.succeeded = succeeded;
         this.sessionId = sessionId;
+        this.responseHeaderStr = responseHeaderStr;
     }
 
     public String getSessionId() {
@@ -22,5 +24,9 @@ public final class LoginResponse {
     }
     public boolean isSucceeded() {
         return succeeded;
+    }
+
+    public String getResponseHeaderStr() {
+        return responseHeaderStr;
     }
 }

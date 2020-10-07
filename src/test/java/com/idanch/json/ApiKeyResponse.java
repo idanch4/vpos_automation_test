@@ -11,10 +11,12 @@ import com.idanch.json.deserializers.GetPoliciesDeserializer;
 public final class ApiKeyResponse {
     private final boolean succeeded;
     private final String ApiKey;
+    private final String responseHeaderStr;
 
-    public ApiKeyResponse(boolean succeeded, String apiKey) {
+    public ApiKeyResponse(boolean succeeded, String apiKey, String responseHeaderStr) {
         this.succeeded = succeeded;
         ApiKey = apiKey;
+        this.responseHeaderStr = responseHeaderStr;
     }
 
     public boolean isSucceeded() {
@@ -23,5 +25,9 @@ public final class ApiKeyResponse {
 
     public String getApiKey() {
         return ApiKey;
+    }
+
+    public String getResponseHeaderStr() {
+        return responseHeaderStr;
     }
 }
